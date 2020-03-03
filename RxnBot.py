@@ -2,16 +2,21 @@ from fbchat import Client
 from fbchat.models import * 
 from itertools import islice
 
+#Replies to memes and urls with a laughing 
+#Replies to certain messages with a gif
 #replace xxx with chat id
 class RxnBot(Client):
     def onMessage(self,author_id,message_object,thread_id,thread_type,**kwards):
-        words = ["lmao","LOL","haha"]
-        if message_object.text in words and thread_id == "xxx":
-            client.send(Message(text="ok now"), thread_id="xxx", thread_type=ThreadType.GROUP)
+        words = ["lmao","LOL","haha","LMAO"]
+        if author_id != self.uid:
+            if message_object.text in words and thread_id == "xxx":
+                print(message_object.text)
+                client.send(Message(text="LMAOO"), thread_id="xxx", thread_type=ThreadType.USER)
+                print(client.fetchMessageInfo(message_object,thread_id="xxx"))
 
-#username = str(input("Username: "))
 username = input("Username: ")
 password = input("Password: ")
+
 
 client = RxnBot(username,password)
 client.listen()
